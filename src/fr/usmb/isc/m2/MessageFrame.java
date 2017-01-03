@@ -1,45 +1,56 @@
 package fr.usmb.isc.m2;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
-import javax.swing.JButton;
 import javax.swing.JTextArea;
-import java.awt.Window.Type;
+import javax.swing.border.EmptyBorder;
 
-public class MessageFrame extends JFrame {
-
-	private JPanel contentPane;
+/**
+ *
+ * @author Abdou ABDELMOUMNI(abdou.abdelmoumni@etu.univ-smb.fr)
+ * @author Rémi REBILLARD (remi.rebillard@etu.univ-smb.fr)
+ * @author Fanny RIBARD (fanny.ribard@etu.univ-smb.fr)
+ * @author Loïc ROBERGEON (loic.robergeon@etu.univ-smb.fr)
+ */
+public class MessageFrame extends JFrame
+{
+	
+	private static final long		serialVersionUID	= 4577266928824451092L;
+	
+	private final JPanel			contentPane;
+	
+	private final ConnexionClient	connexion;
 
 	/**
 	 * Create the frame.
 	 */
-	public MessageFrame() {
-		setTitle("Sending message");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+	public MessageFrame ( ConnexionClient connexion ) {
+		this.setTitle( "Sending message" );
+		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+		this.setBounds( 100, 100, 450, 300 );
+		this.contentPane = new JPanel();
+		this.contentPane.setBorder( new EmptyBorder( 5, 5, 5, 5 ) );
+		this.contentPane.setLayout( new BorderLayout( 0, 0 ) );
+		this.setContentPane( this.contentPane );
+		
+		this.connexion = connexion;
 		
 		JPanel panelText = new JPanel();
-		contentPane.add(panelText, BorderLayout.CENTER);
+		this.contentPane.add( panelText, BorderLayout.CENTER );
 		
 		JTextArea textAreaSend = new JTextArea();
-		textAreaSend.setRows(10);
-		textAreaSend.setColumns(30);
-		panelText.add(textAreaSend);
+		textAreaSend.setRows( 10 );
+		textAreaSend.setColumns( 30 );
+		panelText.add( textAreaSend );
 		
 		JPanel panelSend = new JPanel();
-		contentPane.add(panelSend, BorderLayout.SOUTH);
+		this.contentPane.add( panelSend, BorderLayout.SOUTH );
 		
-		JButton buttonSend = new JButton("Send message");
-		panelSend.add(buttonSend);
+		JButton buttonSend = new JButton( "Send message" );
+		panelSend.add( buttonSend );
 	}
 
 }
