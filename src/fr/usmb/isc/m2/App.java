@@ -3,6 +3,8 @@
  */
 package fr.usmb.isc.m2;
 
+import java.awt.EventQueue;
+
 /**
  * Classe principale de l'application client (03/01/2017)
  * 
@@ -17,8 +19,19 @@ public class App {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MessageFrame frame = new MessageFrame();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		
 	}
 
 }
