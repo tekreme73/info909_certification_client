@@ -4,12 +4,10 @@
 package fr.usmb.isc.m2;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -28,27 +26,27 @@ import javax.net.ssl.SSLSocketFactory;
 public class ConnexionClient
 {
 	private Socket			client;
-	
+
 	private InputStream		is;
-	
+
 	private BufferedReader	in;
-	
+
 	private OutputStream	os;
-	
+
 	private PrintWriter		out;
-	
+
 	public ConnexionClient ( InetAddress address, int port ) {
 		try
 		{
-			SSLSocketFactory sslsocketfactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
-            SSLSocket sslsocket = (SSLSocket) sslsocketfactory.createSocket(address, port);
-            
-			this.setClient( sslsocket );
-
+			SSLSocketFactory sslSocketFactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
+			SSLSocket sslSocket = (SSLSocket) sslSocketFactory.createSocket( address, port );
+			
+			this.setClient( sslSocket );
+			
 			this.setIs( this.getClient().getInputStream() );
 			InputStreamReader isr = new InputStreamReader( this.getIs() );
 			this.setIn( new BufferedReader( isr ) );
-			
+
 			this.setOut( new PrintWriter( this.getClient().getOutputStream() ) );
 		} catch ( UnknownHostException e )
 		{
@@ -58,36 +56,36 @@ public class ConnexionClient
 			System.err.println( "I/O invalides pour la connexion" );
 		}
 	}
-	
+
 	public ConnexionClient ( String ip, int port ) throws UnknownHostException {
 		this( InetAddress.getByName( ip ), port );
 	}
-	
+
 	public Socket getClient ()
 	{
 		return this.client;
 	}
-	
+
 	public BufferedReader getIn ()
 	{
 		return this.in;
 	}
-	
+
 	public InputStream getIs ()
 	{
 		return this.is;
 	}
-	
+
 	public OutputStream getOs ()
 	{
 		return this.os;
 	}
-	
+
 	public PrintWriter getOut ()
 	{
 		return this.out;
 	}
-
+	
 	public String serverCalculation ( String text )
 	{
 		String response = "";
@@ -95,7 +93,7 @@ public class ConnexionClient
 		{
 			this.getOut().println( text );
 			this.getOut().flush();
-			
+
 			while ( response.isEmpty() )
 			{
 				response = this.getIn().readLine();
@@ -106,27 +104,27 @@ public class ConnexionClient
 		}
 		return response;
 	}
-	
+
 	public void setClient ( Socket client )
 	{
 		this.client = client;
 	}
-	
+
 	public void setIn ( BufferedReader in )
 	{
 		this.in = in;
 	}
-
+	
 	public void setIs ( InputStream is )
 	{
 		this.is = is;
 	}
-
+	
 	public void setOs ( OutputStream os )
 	{
 		this.os = os;
 	}
-	
+
 	public void setOut ( PrintWriter out )
 	{
 		this.out = out;
