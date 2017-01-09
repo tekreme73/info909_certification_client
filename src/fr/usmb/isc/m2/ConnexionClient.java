@@ -18,6 +18,7 @@ import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.security.Security;
 import java.security.cert.CertificateException;
 import java.security.cert.PKIXBuilderParameters;
 
@@ -49,9 +50,11 @@ public class ConnexionClient
 	public ConnexionClient ( InetAddress address, int port ) {
 		try
 		{
+			Security.setProperty("ocsp.enabled", "true");
+			
 			/* instancier le KeyStore */
 			KeyStore ks = KeyStore.getInstance( "JKS" );
-			ks.load( new FileInputStream( System.getenv( "JAVA_HOME" ) + "/jre/lib/security/cacerts" ), null );
+			ks.load( new FileInputStream( System.getProperty( "user.dir" ) + "/resources/security/clientkeystore" ), "azerty".toCharArray() );
 
 			PKIXBuilderParameters params = new PKIXBuilderParameters( ks, null );
 			/* désactivation la révocation */
