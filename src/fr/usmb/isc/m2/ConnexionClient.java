@@ -4,14 +4,19 @@
 package fr.usmb.isc.m2;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
 
 /**
  *
@@ -35,7 +40,10 @@ public class ConnexionClient
 	public ConnexionClient ( InetAddress address, int port ) {
 		try
 		{
-			this.setClient( new Socket( address, port ) );
+			SSLSocketFactory sslsocketfactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
+            SSLSocket sslsocket = (SSLSocket) sslsocketfactory.createSocket(address, port);
+            
+			this.setClient( sslsocket );
 
 			this.setIs( this.getClient().getInputStream() );
 			InputStreamReader isr = new InputStreamReader( this.getIs() );
