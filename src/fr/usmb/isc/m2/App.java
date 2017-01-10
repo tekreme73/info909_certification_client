@@ -29,7 +29,8 @@ public class App
 			{
 				try
 				{
-					ConnexionClient client = new ConnexionClient( InetAddress.getLocalHost(), 8080 );
+					int port = 8080;
+					ConnexionClient client = new ConnexionClient( InetAddress.getLocalHost(), port );
 					MessageFrame frame = new MessageFrame( client );
 					frame.setVisible( true );
 				} catch ( Exception e )
@@ -38,7 +39,7 @@ public class App
 				}
 			}
 		} );
-
+		
 	}
-
+	
 }
