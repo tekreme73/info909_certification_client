@@ -1,4 +1,4 @@
-package fr.usmb.isc.m2;
+package fr.usmb.isc.m2.test;
 
 import java.io.*;
 import javax.net.ssl.*;
